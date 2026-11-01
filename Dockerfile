@@ -33,7 +33,7 @@ FROM ${NODE_IMAGE} AS runtime
 WORKDIR /app
 
 ENV NODE_ENV=production
-ENV PORT=3001
+ENV PORT=7860
 ENV FREELLMAPI_INSTALL_METHOD=docker
 
 COPY --from=build --chown=node:node /app/package.json /app/package-lock.json ./
@@ -70,7 +70,7 @@ USER node
 
 ENTRYPOINT ["/usr/local/bin/docker-entrypoint.sh"]
 
-EXPOSE 3001
+EXPOSE 7860
 
 # No VOLUME for /app/server/data on purpose. Persistence is the deployment's
 # job — docker-compose.yml maps the named `freellmapi-data` volume there, and a
