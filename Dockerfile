@@ -66,7 +66,7 @@ ENV FREELLMAPI_COMMIT_SHA=${FREELLMAPI_COMMIT_SHA}
 
 # Runs as root so docker-entrypoint.sh can chown a root-owned volume mount on
 # PaaS runtimes; the entrypoint drops back to the node user before exec'ing CMD.
-USER root
+USER node
 
 ENTRYPOINT ["/usr/local/bin/docker-entrypoint.sh"]
 
