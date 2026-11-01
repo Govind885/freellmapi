@@ -22,7 +22,7 @@ services:
     # Bound to localhost by default — FreeLLMAPI is single-user and must not be
     # exposed to the internet. Set HOST_BIND=0.0.0.0 to reach it from your LAN.
     ports:
-      - "${HOST_BIND:-127.0.0.1}:${PORT:-3001}:3001"
+      - "3001:3001"
     volumes:
       - freellmapi-data:/app/server/data
     # Makes `host.docker.internal` resolve to the host from inside the
@@ -53,20 +53,6 @@ services:
   # Nothing happens on a schedule, no port is published, and no other
   # container is touched. It needs the Docker socket, which is root-equivalent
   # on the host — leave the profile off if that is not acceptable.
-  watchtower:
-    image: nickfedor/watchtower:1.22.3
-    profiles: ["autoupdate"]
-    environment:
-      WATCHTOWER_HTTP_API_ENDPOINTS: update
-      WATCHTOWER_HTTP_API_TOKEN: ${WATCHTOWER_TOKEN:-}
-      WATCHTOWER_LABEL_ENABLE: "true"
-      WATCHTOWER_SCOPE: freellmapi
-      WATCHTOWER_CLEANUP: "true"
-    labels:
-      com.centurylinklabs.watchtower.scope: freellmapi
-    volumes:
-      - /var/run/docker.sock:/var/run/docker.sock
-    restart: unless-stopped
 
 volumes:
   freellmapi-data:
